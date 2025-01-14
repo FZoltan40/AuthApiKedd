@@ -30,3 +30,4 @@ C:\Users\farka\Git\AuthApi\WeatherForecast\obj\Debug\net8.0\refint\WeatherForeca
 C:\Users\farka\Git\AuthApi\WeatherForecast\obj\Debug\net8.0\WeatherForecast.pdb
 C:\Users\farka\Git\AuthApi\WeatherForecast\obj\Debug\net8.0\WeatherForecast.genruntimeconfig.cache
 C:\Users\farka\Git\AuthApi\WeatherForecast\obj\Debug\net8.0\ref\WeatherForecast.dll
+C:\Users\farka\Git\AuthApi\WeatherForecast\obj\Debug\net8.0\WeatherForecast.sourcelink.json
