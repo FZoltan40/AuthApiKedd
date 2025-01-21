@@ -11,6 +11,19 @@ namespace WeatherForecast
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                                      policy =>
+                                      {
+                                          policy.WithOrigins("*")
+                                                                .AllowAnyHeader()
+                                                                .AllowAnyMethod();
+                                      });
+            });
+
+
             var settingsSection = builder.Configuration.GetSection("AuthSettings:JwtOptions");
 
             var secret = settingsSection.GetValue<string>("Secret");

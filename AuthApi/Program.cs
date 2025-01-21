@@ -13,6 +13,7 @@ namespace AuthApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
+
             builder.Services.AddDbContext<AppDbContext>();
             builder.Services.AddScoped<IAuth, AuthService>();
             builder.Services.AddScoped<ITokenGenerator, TokenGenerator>();
@@ -21,6 +22,18 @@ namespace AuthApi
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>()
                .AddDefaultTokenProviders();
+
+            var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                                      policy =>
+                                      {
+                                          policy.WithOrigins("*")
+                                                                .AllowAnyHeader()
+                                                                .AllowAnyMethod();
+                                      });
+            });
 
 
             // Add services to the container.
