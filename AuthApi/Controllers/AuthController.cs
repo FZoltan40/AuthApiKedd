@@ -40,5 +40,17 @@ namespace AuthApi.Controllers
             }
             return BadRequest(res);
         }
+
+        [HttpPost("AssignRole")]
+        public async Task<ActionResult> AssignRole(AssignUserDto assignUserDto)
+        {
+            var res = await auth.AssignRole(assignUserDto.Email, assignUserDto.RoleName);
+
+            if (res != null)
+            {
+                return Ok(res);
+            }
+            return BadRequest(res);
+        }
     }
 }

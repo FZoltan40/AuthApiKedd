@@ -54,6 +54,8 @@ namespace WeatherForecast
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
 
 

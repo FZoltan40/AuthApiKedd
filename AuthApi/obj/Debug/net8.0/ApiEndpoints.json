@@ -1,6 +1,22 @@
 [
   {
     "ContainingType": "AuthApi.Controllers.AuthController",
+    "Method": "AssignRole",
+    "RelativePath": "auth/AssignRole",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "assignUserDto",
+        "Type": "AuthApi.Models.Dtos.AssignUserDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AuthApi.Controllers.AuthController",
     "Method": "LoginUser",
     "RelativePath": "auth/login",
     "HttpMethod": "POST",

@@ -23,6 +23,26 @@ namespace AuthApi.Services
             this.tokenGenerator = tokenGenerator;
         }
 
+        public async Task<object> AssignRole(string email, string roleName)
+        {
+            var user = await _dbContext.applicationUsers.FirstOrDefaultAsync(user => user.NormalizedEmail == email.ToUpper());
+
+            if (user != null)
+            {
+                if (!roleManager.RoleExistsAsync(roleName).GetAwaiter().GetResult())
+                {
+                    //Itt készülnek a Role-ok
+                    roleManager.CreateAsync(new IdentityRole(roleName)).GetAwaiter().GetResult();
+                }
+
+                await userManager.AddToRoleAsync(user, roleName);
+
+                return new { result = user, message = "Sikeres hozzárendelés." };
+            }
+
+            return new { result = "", message = "Sikertelen hozzárendelés." };
+        }
+
         public async Task<object> Login(LoginIUserDto loginUserDto)
         {
             var user = await _dbContext.applicationUsers.FirstOrDefaultAsync(user => user.NormalizedUserName == loginUserDto.UserName.ToUpper());

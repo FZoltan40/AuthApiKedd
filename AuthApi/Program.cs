@@ -22,6 +22,7 @@ namespace AuthApi
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>()
                .AddDefaultTokenProviders();
 
+
             // Add services to the container.
 
             builder.Services.AddControllers();
@@ -39,6 +40,8 @@ namespace AuthApi
             }
 
             app.UseHttpsRedirection();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
