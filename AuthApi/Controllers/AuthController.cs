@@ -18,7 +18,15 @@ namespace AuthApi.Controllers
         [HttpPost("Register")]
         public async Task<ActionResult> AddNewUser(CreateUserDto createUserDto)
         {
-            return Ok();
+            var res = await auth.Register(createUserDto);
+
+            if (res != null)
+            {
+                return StatusCode(201, res);
+            }
+
+            return BadRequest(res);
+
         }
     }
 }

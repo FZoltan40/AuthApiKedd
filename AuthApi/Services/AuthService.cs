@@ -3,6 +3,7 @@ using AuthApi.Models;
 using AuthApi.Models.Dtos;
 using AuthApi.Services.IAuthService;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace AuthApi.Services
 {
@@ -19,9 +20,26 @@ namespace AuthApi.Services
             this.roleManager = roleManager;
         }
 
-        public Task<string> Register(CreateUserDto createUserDto)
+        public async Task<object> Register(CreateUserDto createUserDto)
         {
-            throw new NotImplementedException();
+            var user = new ApplicationUser
+            {
+                UserName = createUserDto.UserName,
+                Email = createUserDto.Email,
+                BirthDate = createUserDto.BirthDate,
+                PhoneNumber = createUserDto.PhoneNumber
+            };
+
+            var res = await userManager.CreateAsync(user, createUserDto.Password);
+
+            if (res.Succeeded)
+            {
+                var existingUser = await _dbContext.applicationUsers.FirstOrDefaultAsync(user => user.UserName == createUserDto.UserName);
+
+                return new { result = new { user.UserName, user.Email }, message = "Sikeres regisztráció." };
+            }
+
+            return new { result = "", message = res.Errors.FirstOrDefault().Description };
         }
     }
 }

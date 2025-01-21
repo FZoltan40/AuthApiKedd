@@ -4,6 +4,6 @@ namespace AuthApi.Services.IAuthService
 {
     public interface IAuth
     {
-        Task<string> Register(CreateUserDto createUserDto);
+        Task<object> Register(CreateUserDto createUserDto);
     }
 }
