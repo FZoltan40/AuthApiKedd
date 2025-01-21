@@ -28,5 +28,17 @@ namespace AuthApi.Controllers
             return BadRequest(res);
 
         }
+
+        [HttpPost("login")]
+        public async Task<ActionResult> LoginUser(LoginIUserDto loginIUserDto)
+        {
+            var res = await auth.Login(loginIUserDto);
+
+            if (res != null)
+            {
+                return Ok(res);
+            }
+            return BadRequest(res);
+        }
     }
 }

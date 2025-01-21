@@ -13,11 +13,32 @@ namespace AuthApi.Services
         private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
 
-        public AuthService(AppDbContext dbContext, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        private readonly ITokenGenerator tokenGenerator;
+
+        public AuthService(AppDbContext dbContext, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, ITokenGenerator tokenGenerator)
         {
             _dbContext = dbContext;
             this.userManager = userManager;
             this.roleManager = roleManager;
+            this.tokenGenerator = tokenGenerator;
+        }
+
+        public async Task<object> Login(LoginIUserDto loginUserDto)
+        {
+            var user = await _dbContext.applicationUsers.FirstOrDefaultAsync(user => user.NormalizedUserName == loginUserDto.UserName.ToUpper());
+
+            bool isValid = await userManager.CheckPasswordAsync(user, loginUserDto.Password);
+
+            if (isValid)
+            {
+                var roles = await userManager.GetRolesAsync(user);
+                var jwtToken = tokenGenerator.GenerateToken(user, roles);
+
+                return new { result = user, token = jwtToken };
+            }
+
+            return new { result = "", token = "" };
+
         }
 
         public async Task<object> Register(CreateUserDto createUserDto)

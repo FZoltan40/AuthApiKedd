@@ -15,6 +15,9 @@ namespace AuthApi
 
             builder.Services.AddDbContext<AppDbContext>();
             builder.Services.AddScoped<IAuth, AuthService>();
+            builder.Services.AddScoped<ITokenGenerator, TokenGenerator>();
+
+            builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("AuthSettings:JwtOptions"));
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>()
                .AddDefaultTokenProviders();

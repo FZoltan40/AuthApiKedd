@@ -1,6 +1,22 @@
 [
   {
     "ContainingType": "AuthApi.Controllers.AuthController",
+    "Method": "LoginUser",
+    "RelativePath": "auth/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "loginIUserDto",
+        "Type": "AuthApi.Models.Dtos.LoginIUserDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AuthApi.Controllers.AuthController",
     "Method": "AddNewUser",
     "RelativePath": "auth/Register",
     "HttpMethod": "POST",
